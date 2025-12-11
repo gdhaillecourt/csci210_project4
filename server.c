@@ -34,12 +34,14 @@ int main() {
         int n = read(server, &req, sizeof(req));
         if (n <= 0) continue;
 
-        // NO PRINTING! Autograder expects silence.
+        // EXACT format required by autograder:
+        printf("Received a request from %s to send the message %s to %s.\n",
+               req.source, req.msg, req.target);
+        fflush(stdout);
 
         target = open(req.target, O_WRONLY);
         if (target < 0) {
-            // Also do NOT print error!
-            // Just skip if target FIFO missing.
+            // Do not print anything extra
             continue;
         }
 
